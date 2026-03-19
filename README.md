@@ -101,12 +101,8 @@ multimodal-ai-copilot/
 ├── frontend/
 │   └── app.py
 │
-├── data/
-├── temp/
-│
 ├── docker/
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
 ---
