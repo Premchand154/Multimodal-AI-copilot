@@ -1,0 +1,37 @@
+services:
+
+  backend:
+    build:
+      context: .
+    image: multimodal_app
+    container_name: multimodal_backend
+    ports:
+      - "8000:8000"
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - ollama
+    volumes:
+      - .:/app
+
+  frontend:
+    image: multimodal_app
+    container_name: multimodal_frontend
+    ports:
+      - "8501:8501"
+    command: streamlit run frontend/app.py --server.port=8501 --server.address=0.0.0.0
+    depends_on:
+      - backend
+    volumes:
+      - .:/app
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama_server
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    restart: always
+
+volumes:
+  ollama:
